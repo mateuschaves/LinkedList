@@ -54,12 +54,13 @@ public class LinkedList {
         return current;
     }
 
-    public Object search(Cell cell) {
+    public Object search(Object cell) {
         Cell current = this.first;
         for(int i = 0; i < this.length; i++) {
-            if(current.getItem() == cell.getItem()) {
-                return current;
+            if(current.getItem() == cell) {
+                return current.getItem();
             }
+            current = current.getNext();
         }
         return null;
     }
