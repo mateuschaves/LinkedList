@@ -64,7 +64,7 @@ public class LinkedList {
         return null;
     }
 
-    public void remove(int posicao) {
+    public void remove() {
         if(this.length == 0) {
             throw new IllegalArgumentException("Empty list");
         }
@@ -81,5 +81,27 @@ public class LinkedList {
 
     private boolean busyPosition(int position) {
         return position >= 0 && position < this.length;
+    }
+    @Override
+    public String toString () {
+    
+        if(this.length == 0) {
+            return "[]";
+        }
+    
+        Cell current = this.first;
+    
+        StringBuilder builder = new StringBuilder("[");
+    
+        for(int i = 0; i < this.length; i++) {
+            builder.append(current.getItem());
+            builder.append(",");
+    
+            current = current.getNext();
+        }
+    
+        builder.append("]");
+    
+        return builder.toString();
     }
 }
