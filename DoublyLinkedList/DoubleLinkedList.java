@@ -24,6 +24,7 @@ public class DoubleLinkedList {
         } else {
             Cell newItem = new Cell(item, null);
             this.last.setNext(newItem);
+            newItem.setPrevious(this.last);
             this.last = newItem;
             this.length++;   
         }
@@ -35,7 +36,7 @@ public class DoubleLinkedList {
         } else if (position == this.length) {
             this.add(item);
         } else {
-            Cell previous = (Cell) get(position - 1);
+            Cell previous = get(position - 1);
             Cell next = previous.getNext();
     
             Cell newItem = new Cell(item, previous.getNext());
@@ -46,7 +47,7 @@ public class DoubleLinkedList {
         }
     }
 
-    public Object get(int position) {
+    public Cell get(int position) {
         if(!busyPosition(position)) {
             throw new IllegalArgumentException("out of bound");
         }
@@ -59,12 +60,13 @@ public class DoubleLinkedList {
         return current;
     }
 
-    public Object search(Cell cell) {
+    public Object search(Object cell) {
         Cell current = this.first;
         for(int i = 0; i < this.length; i++) {
-            if(current.getItem() == cell.getItem()) {
-                return current;
+            if(current.getItem() == cell) {
+                return current.getItem();
             }
+            current = current.getNext();
         }
         return null;
     }
@@ -84,6 +86,7 @@ public class DoubleLinkedList {
         if(this.length == 1) {
             this.removeFirst();
         } else {
+            System.out.println(this.last.getItem());
             Cell penultimate = this.last.getPrevious();
             penultimate.setNext(null);
             this.last = penultimate;
@@ -114,6 +117,29 @@ public class DoubleLinkedList {
 
     private boolean busyPosition(int position) {
         return position >= 0 && position < this.length;
+    }
+
+    @Override
+    public String toString () {
+    
+        if(this.length == 0) {
+            return "[]";
+        }
+    
+        Cell current = this.first;
+    
+        StringBuilder builder = new StringBuilder("[");
+    
+        for(int i = 0; i < this.length; i++) {
+            builder.append(current.getItem());
+            builder.append(",");
+    
+            current = current.getNext();
+        }
+    
+        builder.append("]");
+    
+        return builder.toString();
     }
 }
 
