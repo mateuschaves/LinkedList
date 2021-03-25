@@ -25,6 +25,8 @@ public class Main {
 
         linkedList.add("Lívia", 3);
 
+
+        System.out.println(linkedList.search("Ana"));
         System.out.println(linkedList.toString());
     }
 }
